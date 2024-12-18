@@ -19,3 +19,16 @@ services:
     depends_on:
       - mongodb
     command: npm run dev reservations
+
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongodb
+    command: npm run dev auth

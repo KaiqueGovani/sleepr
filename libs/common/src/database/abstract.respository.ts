@@ -19,23 +19,36 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   }
 
   async findOne(filterQuery: FilterQuery<TDocument>): Promise<TDocument> {
-    const document = await this.model.findOne(filterQuery).lean<TDocument>(true);
+    const document = await this.model
+      .findOne(filterQuery)
+      .lean<TDocument>(true);
 
     if (!document) {
-      this.logger.warn(`Document was not found with filter ${JSON.stringify(filterQuery)}`);
+      this.logger.warn(
+        `Document was not found with filter ${JSON.stringify(filterQuery)}`,
+      );
       throw new NotFoundException('Document was not found');
     }
 
     return document;
   }
 
-  async findOneAndUpdate(filterQuery: FilterQuery<TDocument>, update: UpdateQuery<TDocument>): Promise<TDocument> {
-    this.logger.debug(`Updating document with filter ${JSON.stringify(filterQuery)}`);
+  async findOneAndUpdate(
+    filterQuery: FilterQuery<TDocument>,
+    update: UpdateQuery<TDocument>,
+  ): Promise<TDocument> {
+    this.logger.debug(
+      `Updating document with filter ${JSON.stringify(filterQuery)}`,
+    );
 
-    const document = await this.model.findOneAndUpdate(filterQuery, update, { new: true }).lean<TDocument>(true);
+    const document = await this.model
+      .findOneAndUpdate(filterQuery, update, { new: true })
+      .lean<TDocument>(true);
 
     if (!document) {
-      this.logger.warn(`Document was not found with filter ${JSON.stringify(filterQuery)}`);
+      this.logger.warn(
+        `Document was not found with filter ${JSON.stringify(filterQuery)}`,
+      );
       throw new NotFoundException('Document was not found');
     }
 
@@ -43,13 +56,19 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   }
 
   async find(filterQuery: FilterQuery<TDocument>): Promise<TDocument[]> {
-    this.logger.debug(`Finding documents with filter ${JSON.stringify(filterQuery)}`);
+    this.logger.debug(
+      `Finding documents with filter ${JSON.stringify(filterQuery)}`,
+    );
 
     return this.model.find(filterQuery).lean<TDocument[]>(true);
   }
 
-  async findOneAndDelete(filterQuery: FilterQuery<TDocument>): Promise<TDocument> {
-    this.logger.debug(`Deleting document with filter ${JSON.stringify(filterQuery)}`);
+  async findOneAndDelete(
+    filterQuery: FilterQuery<TDocument>,
+  ): Promise<TDocument> {
+    this.logger.debug(
+      `Deleting document with filter ${JSON.stringify(filterQuery)}`,
+    );
 
     return this.model.findOneAndDelete(filterQuery).lean<TDocument>(true);
   }
