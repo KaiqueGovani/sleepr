@@ -1,4 +1,5 @@
-import { CurrentUser, JwtAuthGuard, UserDto } from '@app/common';
+import { CurrentUser, JwtAuthGuard } from '@app/common';
+import { UserDto } from '@app/common/dto/user.dto';
 import {
   Body,
   Controller,
