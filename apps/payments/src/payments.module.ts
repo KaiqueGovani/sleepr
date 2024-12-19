@@ -25,7 +25,7 @@ import { PaymentsService } from './payments.service';
           transport: Transport.TCP,
           options: {
             host: configService.get('NOTIFICATIONS_HOST'),
-            post: configService.get('NOTIFICATIONS_PORT'),
+            port: configService.get('NOTIFICATIONS_PORT'),
           },
         }),
         inject: [ConfigService],
