@@ -44,10 +44,21 @@ services:
       target: development
     env_file:
       - ./apps/payments/.env
-    ports:
-      - '3003:3003'
     volumes:
       - .:/usr/src/app
     depends_on:
       - mongodb
     command: npm run dev payments
+
+  notifications:
+    build:
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: development
+    env_file:
+      - ./apps/notifications/.env
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongodb
+    command: npm run dev notifications
