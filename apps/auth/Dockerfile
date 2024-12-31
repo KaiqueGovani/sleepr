@@ -1,19 +1,16 @@
-FROM node:alpine AS development
+FROM node:20-alpine AS development
 
 WORKDIR /usr/src/app
 
 COPY package*.json tsconfig.json nest-cli.json ./
 
-RUN npm install
-
 COPY apps/auth apps/auth
 COPY libs libs
 
-RUN cd apps/auth && npm install
-
+RUN npm install
 RUN npm run build auth
 
-FROM node:alpine AS production
+FROM node:20-alpine AS production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -21,6 +18,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY apps/auth/package*.json ./apps/auth/
 
 RUN npm install --omit=dev
 
