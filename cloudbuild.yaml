@@ -74,3 +74,6 @@ steps:
         'push',
         'northamerica-south1-docker.pkg.dev/verdant-legacy-445203-c0/payments/production',
       ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY
