@@ -1,4 +1,4 @@
-FROM node:20-alpine AS development
+FROM node:alpine AS development
 
 WORKDIR /usr/src/app
 
@@ -10,7 +10,7 @@ COPY libs libs
 RUN npm install
 RUN npm run build auth
 
-FROM node:20-alpine AS production
+FROM node:alpine AS production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
