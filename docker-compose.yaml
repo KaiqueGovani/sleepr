@@ -16,8 +16,6 @@ services:
       - ./apps/reservations/.env
     ports:
       - '3000:3000'
-    volumes:
-      - .:/usr/src/app
     depends_on:
       - mongodb
     command: npm run dev reservations
@@ -31,8 +29,6 @@ services:
       - ./apps/auth/.env
     ports:
       - '3001:3001'
-    volumes:
-      - .:/usr/src/app
     depends_on:
       - mongodb
     command: npm run dev auth
@@ -44,8 +40,6 @@ services:
       target: development
     env_file:
       - ./apps/payments/.env
-    volumes:
-      - .:/usr/src/app
     depends_on:
       - mongodb
     command: npm run dev payments
@@ -57,8 +51,6 @@ services:
       target: development
     env_file:
       - ./apps/notifications/.env
-    volumes:
-      - .:/usr/src/app
     depends_on:
       - mongodb
     command: npm run dev notifications
