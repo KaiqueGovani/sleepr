@@ -15,5 +15,25 @@ spec:
         app: auth
     spec:
       containers:
-      - image: northamerica-south1-docker.pkg.dev/verdant-legacy-445203-c0/auth/production
-        name: auth
+        - image: northamerica-south1-docker.pkg.dev/verdant-legacy-445203-c0/auth/production
+          name: auth
+          env:
+            - name: JWT_EXPIRATION
+              value: '3600'
+            - name: HTTP_PORT
+              value: '3001'
+            - name: TCP_PORT
+              value: '3002'
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: connectionString
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth-secrets
+                  key: jwtSecret
+          ports:
+            - containerPort: 3001
+            - containerPort: 3002

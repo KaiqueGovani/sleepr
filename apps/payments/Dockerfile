@@ -4,13 +4,10 @@ WORKDIR /usr/src/app
 
 COPY package*.json tsconfig.json nest-cli.json ./
 
-RUN npm install
-
 COPY apps/payments apps/payments
 COPY libs libs
 
-RUN cd apps/payments && npm install
-
+RUN npm install
 RUN npm run build payments
 
 FROM node:alpine AS production
@@ -21,6 +18,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY apps/payments/package*.json ./apps/payments/
 
 RUN npm install --omit=dev
 

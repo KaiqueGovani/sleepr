@@ -15,5 +15,20 @@ spec:
         app: payments
     spec:
       containers:
-      - image: northamerica-south1-docker.pkg.dev/verdant-legacy-445203-c0/payments/production
-        name: payments
+        - image: northamerica-south1-docker.pkg.dev/verdant-legacy-445203-c0/payments/production
+          name: payments
+          env:
+            - name: TCP_PORT
+              value: '3003'
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe
+                  key: apiKey
+            - name: NOTIFICATIONS_HOST
+              value: notifications
+            - name: NOTIFICATIONS_PORT
+              value: '3004'
+
+          ports:
+            - containerPort: 3003
